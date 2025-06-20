@@ -15,7 +15,7 @@ main {
 body {
   font-family: "DM Serif Text", "Inter", Arial, sans-serif;
 }
-aquítienes todas las reglas CSS de tu página web, extraídas de la sección <style> del HTML:
+aquítienestodas las reglas CSS de tu página web, extraídas de la sección <style> del HTML:
 
 /* Asegura que la fuente DM Serif Text se use por defecto, o Inter/Arial/sans-serif como respaldo */ body {
   font-family: "DM Serif Text", "Inter", Arial, sans-serif;
@@ -124,4 +124,12 @@ section {
 #mi-juego p,
 #mi-juego button {
   font-family: "DM Serif Text", "Inter", Arial, sans-serif;
+}
+/* MEDIA QUERY para la galería de imágenes:
+   En pantallas de 768px de ancho o menos, las imágenes se apilan verticalmente.
+   Esto sobreescribe 'md:flex-row' de Tailwind para tamaños más pequeños. */
+@media (max-width: 768px) {
+  .flex.flex-col.md\:flex-row {
+    flex-direction: column;
+  }
 }

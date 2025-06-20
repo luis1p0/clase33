@@ -8,6 +8,11 @@
       name="description"
       content="Descubre el fascinante proceso creativo y el diseño arquitectónico. Explora innovadores proyectos y transforma tus ideas en espacios. ¡Inspírate aquí!"
     />
+    <!-- Enlace al emoji del cohete como favicon -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>"
+    />
     <!-- Incluye Tailwind CSS para un diseño responsivo y rápido -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Enlace a Google Fonts para 'DM Serif Text' -->
@@ -126,6 +131,15 @@
       #quiz-arquitectonico p,
       #quiz-arquitectonico button {
         font-family: "DM Serif Text", "Inter", Arial, sans-serif;
+      }
+
+      /* MEDIA QUERY para la galería de imágenes:
+         En pantallas de 768px de ancho o menos, las imágenes se apilan verticalmente.
+         Esto sobreescribe 'md:flex-row' de Tailwind para tamaños más pequeños. */
+      @media (max-width: 768px) {
+        .flex.flex-col.md\:flex-row {
+          flex-direction: column;
+        }
       }
     </style>
   </head>

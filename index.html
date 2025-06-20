@@ -31,6 +31,8 @@
         background-color: #2c3e50; /* Color de fondo azul oscuro */
         color: white; /* Color de texto blanco */
         padding: 20px; /* Relleno de 20 píxeles */
+        /* Ajuste de padding-top para dejar espacio al navbar y al header fijos */
+        padding-top: 122px; /* Altura combinada estimada del header (70px) + nav (52px) */
       }
 
       /* Estilos para el menú de navegación */
@@ -144,44 +146,44 @@
     </style>
   </head>
   <body>
-    <!-- Cabecera de la página: Contiene el título principal del sitio -->
-    <!-- Se ha añadido la clase 'container' aquí para aplicar los nuevos estilos -->
-    <header
-      class="container bg-green-800 shadow-sm py-4 px-6 md:px-10 rounded-lg"
-    >
-      <h1 class="text-3xl font-bold text-center text-white">
-        Del Boceto al Espacio: Mi Cuaderno de Obras
-      </h1>
-    </header>
+    <!-- Contenedor principal para la cabecera y el menú de navegación, que se mantendrá fijo -->
+    <div class="fixed top-0 left-0 right-0 z-50">
+      <!-- Cabecera de la página: Contiene el título principal del sitio -->
+      <header
+        class="container bg-green-800 shadow-sm py-4 px-6 md:px-10 rounded-b-lg"
+      >
+        <h1 class="text-3xl font-bold text-center text-white">
+          Del Boceto al Espacio: Mi Cuaderno de Obras
+        </h1>
+      </header>
 
-    <!-- Menú de navegación: Permite al usuario saltar a diferentes secciones de la página -->
-    <!-- Se ha añadido la clase 'container' aquí para aplicar los nuevos estilos -->
-    <nav class="container bg-white shadow-sm py-3 px-6 md:px-10 rounded-lg">
-      <!-- Se han eliminado las clases de Tailwind de los <a> para que los estilos CSS personalizados tengan precedencia -->
-      <ul class="flex flex-wrap justify-center gap-4 text-lg">
-        <li>
-          <a href="#inicio">Inicio</a>
-        </li>
-        <li>
-          <a href="#sobre-mi">Sobre Mí</a>
-        </li>
-        <li>
-          <a href="#proyectos">Proyectos</a>
-        </li>
-        <li>
-          <a href="#proceso-creativo">El Proceso Creativo</a>
-        </li>
-        <li>
-          <a href="#quiz-arquitectonico">Cuestionario</a>
-        </li>
-        <li>
-          <a href="#contacto">Contacto</a>
-        </li>
-      </ul>
-    </nav>
+      <!-- Menú de navegación: Permite al usuario saltar a diferentes secciones de la página -->
+      <nav class="bg-white shadow-sm py-3">
+        <!-- Se han eliminado las clases de Tailwind de los <a> para que los estilos CSS personalizados tengan precedencia -->
+        <ul class="container flex flex-wrap justify-center gap-4 text-lg">
+          <li>
+            <a href="#inicio">Inicio</a>
+          </li>
+          <li>
+            <a href="#sobre-mi">Sobre Mí</a>
+          </li>
+          <li>
+            <a href="#proyectos">Proyectos</a>
+          </li>
+          <li>
+            <a href="#proceso-creativo">El Proceso Creativo</a>
+          </li>
+          <li>
+            <a href="#quiz-arquitectonico">Cuestionario</a>
+          </li>
+          <li>
+            <a href="#contacto">Contacto</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <!-- Área de contenido principal: Contiene todas las secciones de la página -->
-    <!-- Se ha añadido la clase 'container' aquí para aplicar los nuevos estilos -->
     <main class="container p-4">
       <!-- Sección de Inicio -->
       <!-- Se ha añadido un color de fondo diferente para destacar la sección de inicio -->
@@ -577,7 +579,7 @@
               "Fachadas de ladrillo visto",
               "Grandes cúpulas",
             ],
-            correctAnswer: 1, // Index of "Formas orgánicas y trencadís"
+            correctAnswer: 1, // Index of "Formas orgánicas y trencadís
           },
           {
             question:

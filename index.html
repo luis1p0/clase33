@@ -554,28 +554,34 @@
 
       // Escuchar el evento de scroll en la ventana.
       window.addEventListener("scroll", () => {
-        const currentScrollY = window.scrollY;
+        // Aplicar este comportamiento solo en pantallas móviles (ancho menor o igual a 768px, que es el breakpoint 'md' de Tailwind).
+        if (window.innerWidth <= 768) {
+          const currentScrollY = window.scrollY;
 
-        // Determinar la altura total de los elementos fijos (header + nav) cuando están visibles.
-        const totalFixedHeaderHeight = fixedHeaderNavWrapper.offsetHeight;
+          // Determinar la altura total de los elementos fijos (header + nav) cuando están visibles.
+          const totalFixedHeaderHeight = fixedHeaderNavWrapper.offsetHeight;
 
-        // Si se está desplazando hacia abajo Y la posición actual de scroll es mayor que la altura combinada del header y nav,
-        // ocultar la navegación (solo el nav, el header permanece visible dentro del wrapper fijo).
-        if (
-          currentScrollY > lastScrollY &&
-          currentScrollY > totalFixedHeaderHeight
-        ) {
-          nav.classList.add("hide-on-scroll"); // Agrega la clase para ocultar.
-        } else if (
-          currentScrollY < lastScrollY ||
-          currentScrollY <= totalFixedHeaderHeight
-        ) {
-          // Si se está desplazando hacia arriba, o si la posición de scroll es menor que la altura de los elementos fijos,
-          // mostrar la navegación. Esto asegura que la navegación aparezca al principio o al desplazarse hacia arriba.
-          nav.classList.remove("hide-on-scroll"); // Elimina la clase para mostrar.
+          // Si se está desplazando hacia abajo Y la posición actual de scroll es mayor que la altura combinada del header y nav,
+          // ocultar la navegación (solo el nav, el header permanece visible dentro del wrapper fijo).
+          if (
+            currentScrollY > lastScrollY &&
+            currentScrollY > totalFixedHeaderHeight
+          ) {
+            nav.classList.add("hide-on-scroll"); // Agrega la clase para ocultar.
+          } else if (
+            currentScrollY < lastScrollY ||
+            currentScrollY <= totalFixedHeaderHeight
+          ) {
+            // Si se está desplazando hacia arriba, o si la posición de scroll es menor que la altura de los elementos fijos,
+            // mostrar la navegación. Esto asegura que la navegación aparezca al principio o al desplazarse hacia arriba.
+            nav.classList.remove("hide-on-scroll"); // Elimina la clase para mostrar.
+          }
+          // Actualizar la última posición de scroll.
+          lastScrollY = currentScrollY;
+        } else {
+          // En pantallas más grandes, asegurar que la navegación esté siempre visible.
+          nav.classList.remove("hide-on-scroll");
         }
-        // Actualizar la última posición de scroll.
-        lastScrollY = currentScrollY;
       });
 
       document.addEventListener("DOMContentLoaded", () => {

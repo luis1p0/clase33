@@ -31,8 +31,16 @@
         background-color: #2c3e50; /* Color de fondo azul oscuro */
         color: white; /* Color de texto blanco */
         padding: 20px; /* Relleno de 20 píxeles */
-        /* Ajuste de padding-top para dejar espacio al navbar y al header fijos */
-        padding-top: 122px; /* Altura combinada estimada del header (70px) + nav (52px) */
+        /* El padding-top de main será establecido dinámicamente por JavaScript
+           para asegurar que la sección de inicio no quede oculta. */
+        padding-top: 0; /* Valor inicial, será sobrescrito por JS */
+      }
+
+      /* Añade scroll-padding-top al elemento HTML para asegurar que los enlaces de anclaje
+         no queden ocultos bajo la cabecera/navegación fija.
+         Este valor también será establecido dinámicamente por JavaScript. */
+      html {
+        scroll-padding-top: 0; /* Valor inicial, será sobrescrito por JS */
       }
 
       /* Estilos para el menú de navegación */
@@ -142,6 +150,20 @@
         .flex.flex-col.md\:flex-row {
           flex-direction: column;
         }
+      }
+
+      /* Estilos para la navegación:
+         Permite que la barra de navegación se deslice suavemente en todas las pantallas. */
+      nav {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* Clase para ocultar la navegación deslizando hacia arriba.
+         Se aplicará con JavaScript. */
+      nav.hide-on-scroll {
+        transform: translateY(
+          -100%
+        ); /* Mueve la barra de navegación completamente hacia arriba. */
       }
     </style>
   </head>
@@ -510,7 +532,58 @@
     </footer>
 
     <script>
+      // Variable para almacenar la última posición de scroll.
+      let lastScrollY = 0;
+      // Obtener referencia al elemento de navegación.
+      const nav = document.querySelector("nav");
+      // Obtener referencia al contenedor fijo de header y nav
+      const fixedHeaderNavWrapper = document.querySelector(".fixed.top-0");
+      // Obtener referencia al main
+      const mainContent = document.querySelector("main");
+
+      // Función para ajustar el padding-top del main y scroll-padding-top de html
+      function adjustContentPadding() {
+        if (fixedHeaderNavWrapper && mainContent) {
+          const headerNavHeight = fixedHeaderNavWrapper.offsetHeight;
+          mainContent.style.paddingTop = `${headerNavHeight + 20}px`; // Añade un poco de espacio extra
+          document.documentElement.style.scrollPaddingTop = `${
+            headerNavHeight + 20
+          }px`;
+        }
+      }
+
+      // Escuchar el evento de scroll en la ventana.
+      window.addEventListener("scroll", () => {
+        const currentScrollY = window.scrollY;
+
+        // Determinar la altura total de los elementos fijos (header + nav) cuando están visibles.
+        const totalFixedHeaderHeight = fixedHeaderNavWrapper.offsetHeight;
+
+        // Si se está desplazando hacia abajo Y la posición actual de scroll es mayor que la altura combinada del header y nav,
+        // ocultar la navegación (solo el nav, el header permanece visible dentro del wrapper fijo).
+        if (
+          currentScrollY > lastScrollY &&
+          currentScrollY > totalFixedHeaderHeight
+        ) {
+          nav.classList.add("hide-on-scroll"); // Agrega la clase para ocultar.
+        } else if (
+          currentScrollY < lastScrollY ||
+          currentScrollY <= totalFixedHeaderHeight
+        ) {
+          // Si se está desplazando hacia arriba, o si la posición de scroll es menor que la altura de los elementos fijos,
+          // mostrar la navegación. Esto asegura que la navegación aparezca al principio o al desplazarse hacia arriba.
+          nav.classList.remove("hide-on-scroll"); // Elimina la clase para mostrar.
+        }
+        // Actualizar la última posición de scroll.
+        lastScrollY = currentScrollY;
+      });
+
       document.addEventListener("DOMContentLoaded", () => {
+        // Ajustar el padding inicial al cargar la página
+        adjustContentPadding();
+        // Ajustar el padding al redimensionar la ventana
+        window.addEventListener("resize", adjustContentPadding);
+
         // --- Existing JavaScript for "Sobre Mí" and "Proyectos" ---
 
         // Get references to HTML elements for the "Sobre Mí" section
